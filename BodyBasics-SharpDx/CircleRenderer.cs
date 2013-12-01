@@ -74,7 +74,6 @@ namespace BodyBasicsSharpDx
             _effect.DiffuseColor = color.ToVector4();
             _effect.CurrentTechnique.Passes[0].Apply();
             
-            _gd.SetRasterizerState(_gd.RasterizerStates.CullNone);
             _gd.SetVertexBuffer(_vertices);
             _gd.SetVertexInputLayout(_layout);
             _gd.Draw(PrimitiveType.TriangleList, _vertices.ElementCount);
