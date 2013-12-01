@@ -1,0 +1,24 @@
+﻿<Window x:Class="BodyBasicsSharpDx.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:SharpDX.Toolkit;assembly=SharpDX.Toolkit.Game"
+        Title="Body Basics" 
+        Height="600" Width="700"      
+        Closing="MainWindow_Closing"> 
+  <Window.Resources>
+    <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e" />
+  </Window.Resources>
+  <Grid Margin="10 0 10 0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <DockPanel Grid.Row="0" Margin="0 0 0 20">
+      <Image DockPanel.Dock="Left" Source="Images\Logo.png" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5" />
+      <TextBlock DockPanel.Dock="Right" Margin="0 0 -1 0" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">Body Basics (SharpDx)</TextBlock>
+      <Image Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5" />
+    </DockPanel>
+    <toolkit:SharpDXElement Margin="0 10" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="surface" x:FieldModifier="private" SendResizeToGame="True" SendResizeDelay="00:00:02.00" LowPriorityRendering="False" />
+  </Grid>
+</Window>
