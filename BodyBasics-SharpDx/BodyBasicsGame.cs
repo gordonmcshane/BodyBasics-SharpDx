@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using BodyBasicsSharpDx.Extensions;
 using BodyBasicsSharpDx.Properties;
 using Microsoft.Kinect;
@@ -11,7 +13,7 @@ using SharpDX.Toolkit.Graphics;
 
 namespace BodyBasicsSharpDx
 {
-    public class BodyBasicsGame : Game
+    public class BodyBasicsGame : Game, INotifyPropertyChanged
     {
         private const float HandRadius = 30;
         private const float JointRadius = 5;
@@ -23,6 +25,28 @@ namespace BodyBasicsSharpDx
         private CoordinateMapper _coordinateMapper;
 
         private uint _framesSinceUpdate;
+
+        public int DepthBufferWidth
+        {
+            get { return _depthBufferWidth; }
+            set
+            {
+                if (value == _depthBufferWidth) return;
+                _depthBufferWidth = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public int DepthBufferHeight
+        {
+            get { return _depthBufferHeight; }
+            set
+            {
+                if (value == _depthBufferHeight) return;
+                _depthBufferHeight = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -36,6 +60,8 @@ namespace BodyBasicsSharpDx
 
         private string _statusText;
         private Stopwatch _stopwatch;
+        private int _depthBufferWidth;
+        private int _depthBufferHeight;
 
         public BodyBasicsGame()
         {
@@ -62,6 +88,9 @@ namespace BodyBasicsSharpDx
 
                 // get the depth (display) extents
                 FrameDescription frameDescription = _kinectSensor.DepthFrameSource.FrameDescription;
+
+                DepthBufferWidth = frameDescription.Width;
+                DepthBufferHeight = frameDescription.Height;
 
                 _bodies = new Body[_kinectSensor.BodyFrameSource.BodyCount];
 
@@ -140,7 +169,7 @@ namespace BodyBasicsSharpDx
             try
             {
                 BodyFrame frame = frameReference.AcquireFrame();
-
+                
                 if (frame != null)
                 {
                     // BodyFrame is IDisposable
@@ -321,6 +350,16 @@ namespace BodyBasicsSharpDx
                     _circleRenderer.Draw(handPosition.X, handPosition.Y, HandRadius, Color.Purple);
                     break;
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            
+            if (handler != null) 
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

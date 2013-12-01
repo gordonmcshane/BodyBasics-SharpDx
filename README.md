@@ -3,6 +3,11 @@ Kinect 4 Windows v2 Body Basics for SharpDx/WPF
 
 **REMEMBER:** This is preliminary software and/or hardware and APIs are preliminary and subject to change.
 
+Screenshot
+----------
+
+![bb-screenshot](https://raw.github.com/gordonmcshane/BodyBasics-SharpDx/master/screenshot.png)
+
 Description
 -----------
 This is a quick port of the sample application BodyBasics-WPF to the SharpDx Toolkit (XNA-like DirectX Wrapper).

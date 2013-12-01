@@ -11,23 +11,24 @@ namespace BodyBasicsSharpDx
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Game _game;
+        public BodyBasicsGame Game { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
         {
-            // initialize the components (controls) of the window
+            Game = new BodyBasicsGame();
+
             this.InitializeComponent();
 
-            _game = new BodyBasicsGame();
-            _game.Run(surface);
+            
+            Game.Run(Surface);
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            _game.Dispose();
+            Game.Dispose();
         }
     }
 }
